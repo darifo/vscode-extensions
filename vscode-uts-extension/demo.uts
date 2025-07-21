@@ -1,0 +1,267 @@
+// UTS插件功能演示文件
+// 这个文件展示了插件的各种功能
+
+// ===== 1. 语法高亮演示 =====
+// 关键字高亮
+let variable: string = "变量";
+const constant: number = 42;
+var oldStyle: boolean = true;
+
+// 类型高亮
+let stringVar: string = "字符串";
+let numberVar: number = 123;
+let booleanVar: boolean = false;
+let arrayVar: Array<string> = ["数组"];
+let objectVar: UTSJSONObject = {};
+
+// 控制流高亮
+if (booleanVar) {
+    console.log("条件为真");
+} else {
+    console.log("条件为假");
+}
+
+for (let i = 0; i < 10; i++) {
+    console.log(`第 ${i} 次循环`);
+}
+
+// ===== 2. 代码提示演示 =====
+// 在下面输入 "let" 应该会提示变量声明
+// 在下面输入 "function" 应该会提示函数声明
+// 在下面输入 "class" 应该会提示类声明
+
+// ===== 3. 对象成员自动提示演示 =====
+// 在 console. 后面应该会提示 log, error, warn 等方法
+console.log("日志信息");
+console.error("错误信息");
+console.warn("警告信息");
+
+// 在 Array. 后面应该会提示 isArray, from, of 等方法
+const isArray = Array.isArray([1, 2, 3]);
+const newArray = Array.from("字符串");
+
+// 在 Object. 后面应该会提示 keys, values, entries 等方法
+const keys = Object.keys({name: "张三", age: 25});
+const values = Object.values({name: "张三", age: 25});
+
+// 在 JSON. 后面应该会提示 stringify, parse 等方法
+const jsonString = JSON.stringify({name: "李四"});
+const parsedObject = JSON.parse('{"name": "王五"}');
+
+// 在 Math. 后面应该会提示各种数学函数
+const maxValue = Math.max(1, 2, 3, 4, 5);
+const randomValue = Math.random();
+const roundedValue = Math.round(3.14);
+
+// ===== 4. 函数定义和跳转演示 =====
+function greetUser(name: string): string {
+    return `你好, ${name}!`;
+}
+
+function calculateSum(a: number, b: number): number {
+    return a + b;
+}
+
+// 异步函数
+async function fetchUserData(userId: number): Promise<UTSJSONObject> {
+    try {
+        const response = await uni.request({
+            url: `https://api.example.com/users/${userId}`,
+            method: 'GET'
+        });
+        return response.data as UTSJSONObject;
+    } catch (error) {
+        console.error('获取用户数据失败:', error);
+        return {};
+    }
+}
+
+// ===== 5. 类定义演示 =====
+class User {
+    private id: number;
+    public name: string;
+    public email: string;
+    
+    constructor(id: number, name: string, email: string) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
+    
+    public getInfo(): string {
+        return `用户ID: ${this.id}, 姓名: ${this.name}, 邮箱: ${this.email}`;
+    }
+    
+    private validateEmail(): boolean {
+        return this.email.includes('@');
+    }
+}
+
+// ===== 6. 接口定义演示 =====
+interface Vehicle {
+    brand: string;
+    model: string;
+    year: number;
+    start(): void;
+    stop(): void;
+}
+
+class Car implements Vehicle {
+    constructor(
+        public brand: string,
+        public model: string,
+        public year: number
+    ) {}
+    
+    start(): void {
+        console.log(`${this.brand} ${this.model} 启动了`);
+    }
+    
+    stop(): void {
+        console.log(`${this.brand} ${this.model} 停止了`);
+    }
+}
+
+// ===== 7. 类型定义演示 =====
+type UserId = number;
+type UserName = string;
+type UserEmail = string;
+
+type UserInfo = {
+    id: UserId;
+    name: UserName;
+    email: UserEmail;
+};
+
+// ===== 8. 错误处理演示 =====
+function divideNumbers(a: number, b: number): number {
+    try {
+        if (b === 0) {
+            throw new Error("除数不能为零");
+        }
+        return a / b;
+    } catch (error) {
+        console.error('计算错误:', error);
+        return 0;
+    } finally {
+        console.log('计算完成');
+    }
+}
+
+// ===== 9. 模块导入导出演示 =====
+// 导出函数
+export function publicFunction(): void {
+    console.log("这是公共函数");
+}
+
+// 导出类
+export class ExportedClass {
+    public method(): void {
+        console.log("这是导出的类方法");
+    }
+}
+
+// 默认导出
+export default function defaultFunction(): void {
+    console.log("这是默认导出函数");
+}
+
+// ===== 10. 条件编译演示 =====
+// #ifdef APP-PLUS
+console.log("这是App平台特有代码");
+// #endif
+
+// #ifdef H5
+console.log("这是H5平台特有代码");
+// #endif
+
+// #ifdef MP-WEIXIN
+console.log("这是微信小程序特有代码");
+// #endif
+
+// ===== 11. 复杂对象操作演示 =====
+const complexObject: UTSJSONObject = {
+    user: {
+        id: 1,
+        name: "张三",
+        profile: {
+            age: 25,
+            city: "北京",
+            hobbies: ["读书", "游泳", "编程"]
+        }
+    },
+    settings: {
+        theme: "dark",
+        language: "zh-CN",
+        notifications: true
+    }
+};
+
+// 访问嵌套对象属性
+const userName = complexObject.get("user") as UTSJSONObject;
+const userProfile = userName.get("profile") as UTSJSONObject;
+const userAge = userProfile.get("age") as number;
+
+// ===== 12. 数组操作演示 =====
+const numbers: UTSArray = new UTSArray();
+numbers.push(1);
+numbers.push(2);
+numbers.push(3);
+
+for (let i = 0; i < numbers.length; i++) {
+    console.log(`数字: ${numbers.get(i)}`);
+}
+
+// ===== 13. 字符串模板演示 =====
+const firstName = "张";
+const lastName = "三";
+const fullName = `${firstName}${lastName}`;
+const greeting = `你好, ${fullName}! 欢迎使用UTS语言。`;
+
+// ===== 14. 类型断言演示 =====
+const anyValue: any = "这是一个字符串";
+const stringValue = anyValue as string;
+const length = stringValue.length;
+
+// ===== 15. 泛型演示 =====
+function createArray<T>(item: T, count: number): Array<T> {
+    const result: Array<T> = [];
+    for (let i = 0; i < count; i++) {
+        result.push(item);
+    }
+    return result;
+}
+
+const stringArray = createArray<string>("hello", 3);
+const numberArray = createArray<number>(42, 5);
+
+// ===== 16. 使用演示 =====
+// 创建用户实例
+const user = new User(1, "李四", "lisi@example.com");
+console.log(user.getInfo());
+
+// 创建汽车实例
+const car = new Car("丰田", "凯美瑞", 2023);
+car.start();
+car.stop();
+
+// 调用函数
+const greetingMessage = greetUser("王五");
+console.log(greetingMessage);
+
+const sum = calculateSum(10, 20);
+console.log(`10 + 20 = ${sum}`);
+
+// 错误处理测试
+const result = divideNumbers(10, 2);
+console.log(`10 / 2 = ${result}`);
+
+const errorResult = divideNumbers(10, 0);
+console.log(`10 / 0 = ${errorResult}`);
+
+// 数组创建测试
+const repeatedStrings = createArray("UTS", 3);
+console.log(repeatedStrings);
+
+const repeatedNumbers = createArray(100, 4);
+console.log(repeatedNumbers); 

@@ -1,0 +1,100 @@
+{
+  "name": "vscode-uts",
+  "displayName": "UTS Language Support",
+  "description": "UTS语言支持插件，提供语法高亮、代码提示、跳转定义等功能",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets"
+  ],
+  "keywords": [
+    "uts",
+    "uni-app-x",
+    "dcloud"
+  ],
+  "publisher": "dcloud",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/darifo/vscode-extensions"
+  },
+  "bugs": {
+    "url": "https://github.com/darifo/vscode-uts-extension/issues"
+  },
+  "homepage": "https://github.com/darifo/vscode-uts-extension#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/darifo/vscode-uts-extension"
+  },
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onLanguage:uts"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "uts",
+        "aliases": [
+          "UTS",
+          "uts"
+        ],
+        "extensions": [
+          ".uts"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "uts",
+        "scopeName": "source.uts",
+        "path": "./syntaxes/uts.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "uts",
+        "path": "./snippets/uts.json"
+      }
+    ],
+    "configuration": {
+      "title": "UTS",
+      "properties": {
+        "uts.suggest.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "启用UTS代码提示"
+        },
+        "uts.hover.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "启用悬停提示"
+        },
+        "uts.definition.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "启用跳转到定义"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "eslint": "^8.26.0",
+    "typescript": "^4.8.4"
+  }
+} 

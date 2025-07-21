@@ -1,0 +1,142 @@
+{
+  "name": "UTS",
+  "scopeName": "source.uts",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#numbers"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#types"
+    },
+    {
+      "include": "#functions"
+    },
+    {
+      "include": "#operators"
+    },
+    {
+      "include": "#variables"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.uts",
+          "match": "//.*$"
+        },
+        {
+          "name": "comment.block.uts",
+          "begin": "/\\*",
+          "end": "\\*/"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.uts",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.uts",
+              "match": "\\\\."
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.uts",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            {
+              "name": "constant.character.escape.uts",
+              "match": "\\\\."
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.template.uts",
+          "begin": "`",
+          "end": "`",
+          "patterns": [
+            {
+              "name": "constant.character.escape.uts",
+              "match": "\\\\."
+            },
+            {
+              "name": "variable.other.uts",
+              "match": "\\$\\{[^}]*\\}"
+            }
+          ]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.uts",
+          "match": "\\b\\d+(\\.\\d+)?\\b"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.uts",
+          "match": "\\b(if|else|switch|case|default|for|while|do|break|continue|return|throw|try|catch|finally|in|of|typeof|instanceof|new|delete|void|with|yield|await|async)\\b"
+        },
+        {
+          "name": "keyword.other.uts",
+          "match": "\\b(let|const|var|function|class|interface|type|namespace|module|import|export|from|as|default|extends|implements|static|public|private|protected|readonly|abstract|virtual|override|sealed|final|enum|union|intersection|keyof|typeof|infer|extends|implements|super|this|null|undefined|true|false|Infinity|NaN)\\b"
+        }
+      ]
+    },
+    "types": {
+      "patterns": [
+        {
+          "name": "storage.type.uts",
+          "match": "\\b(string|number|boolean|object|array|any|void|never|unknown|undefined|null|symbol|bigint|Date|RegExp|Error|Function|Promise|Map|Set|WeakMap|WeakSet|ArrayBuffer|DataView|Int8Array|Uint8Array|Uint8ClampedArray|Int16Array|Uint16Array|Int32Array|Uint32Array|Float32Array|Float64Array|BigInt64Array|BigUint64Array)\\b"
+        },
+        {
+          "name": "storage.type.uts",
+          "match": "\\b(UTSJSONObject|UTSJSONValue|UTSArray|UTSString|UTSNumber|UTSBoolean)\\b"
+        }
+      ]
+    },
+    "functions": {
+      "patterns": [
+        {
+          "name": "entity.name.function.uts",
+          "match": "\\b\\w+(?=\\s*\\()"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.uts",
+          "match": "\\+\\+|--|\\+|-|\\*|/|%|\\*\\*|==|!=|===|!==|<|<=|>|>=|<<|>>|>>>|&|\\||\\^|!|~|&&|\\|\\||\\?|:|=|\\+=|-=|\\*=|/=|%=|\\*\\*=|<<=|>>=|>>>=|&=|\\|=|\\^=|=>|\\?\\?|\\?\\."
+        }
+      ]
+    },
+    "variables": {
+      "patterns": [
+        {
+          "name": "variable.other.uts",
+          "match": "\\b\\w+\\b"
+        }
+      ]
+    }
+  }
+} 

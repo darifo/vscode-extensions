@@ -1,0 +1,116 @@
+// UTS语言测试文件
+// 这是一个用于测试UTS插件功能的示例文件
+
+// 变量声明
+let message: string = "Hello UTS!";
+const PI: number = 3.14159;
+let isActive: boolean = true;
+
+// 数组声明
+const numbers: Array<number> = [1, 2, 3, 4, 5];
+const fruits: string[] = ["apple", "banana", "orange"];
+
+// 对象声明
+const person: UTSJSONObject = {
+    name: "张三",
+    age: 25,
+    city: "北京"
+};
+
+// 函数声明
+function greet(name: string): string {
+    return `Hello, ${name}!`;
+}
+
+// 异步函数
+async function fetchData(url: string): Promise<UTSJSONObject> {
+    try {
+        const response = await uni.request({
+            url: url,
+            method: 'GET'
+        });
+        return response.data as UTSJSONObject;
+    } catch (error) {
+        console.error('请求失败:', error);
+        return {};
+    }
+}
+
+// 类声明
+class Calculator {
+    private result: number = 0;
+    
+    constructor(initialValue: number = 0) {
+        this.result = initialValue;
+    }
+    
+    add(value: number): void {
+        this.result += value;
+    }
+    
+    subtract(value: number): void {
+        this.result -= value;
+    }
+    
+    getResult(): number {
+        return this.result;
+    }
+}
+
+// 接口声明
+interface User {
+    id: number;
+    name: string;
+    email: string;
+    isActive: boolean;
+}
+
+// 类型定义
+type UserId = number;
+type UserName = string;
+
+// 控制流示例
+function processUser(user: User): void {
+    if (user.isActive) {
+        console.log(`用户 ${user.name} 是活跃的`);
+        
+        for (let i = 0; i < 3; i++) {
+            console.log(`处理第 ${i + 1} 次`);
+        }
+        
+        while (user.id > 0) {
+            console.log(`用户ID: ${user.id}`);
+            break; // 避免无限循环
+        }
+    } else {
+        console.log(`用户 ${user.name} 不是活跃的`);
+    }
+}
+
+// 错误处理示例
+function divideNumbers(a: number, b: number): number {
+    try {
+        if (b === 0) {
+            throw new Error("除数不能为零");
+        }
+        return a / b;
+    } catch (error) {
+        console.error('计算错误:', error);
+        return 0;
+    } finally {
+        console.log('计算完成');
+    }
+}
+
+// 导出示例
+export { Calculator, User, processUser };
+export default greet;
+
+// 条件编译示例
+// #ifdef APP-PLUS
+console.log('这是App平台特有代码');
+// #endif
+
+// #ifdef H5
+console.log('这是H5平台特有代码');
+// #endif 

@@ -1,0 +1,161 @@
+{
+  "UTS Variable Declaration": {
+    "prefix": "let",
+    "body": [
+      "let ${1:variableName}: ${2:string} = ${3:\"value\"};"
+    ],
+    "description": "声明一个UTS变量"
+  },
+  "UTS Constant Declaration": {
+    "prefix": "const",
+    "body": [
+      "const ${1:constantName}: ${2:string} = ${3:\"value\"};"
+    ],
+    "description": "声明一个UTS常量"
+  },
+  "UTS Function": {
+    "prefix": "function",
+    "body": [
+      "function ${1:functionName}(${2:params}): ${3:void} {",
+      "\t${4:// function body}",
+      "}"
+    ],
+    "description": "声明一个UTS函数"
+  },
+  "UTS Class": {
+    "prefix": "class",
+    "body": [
+      "class ${1:ClassName} {",
+      "\t${2:// class members}",
+      "}"
+    ],
+    "description": "声明一个UTS类"
+  },
+  "UTS Interface": {
+    "prefix": "interface",
+    "body": [
+      "interface ${1:InterfaceName} {",
+      "\t${2:// interface members}",
+      "}"
+    ],
+    "description": "声明一个UTS接口"
+  },
+  "UTS If Statement": {
+    "prefix": "if",
+    "body": [
+      "if (${1:condition}) {",
+      "\t${2:// if body}",
+      "}"
+    ],
+    "description": "UTS if语句"
+  },
+  "UTS If-Else Statement": {
+    "prefix": "ifelse",
+    "body": [
+      "if (${1:condition}) {",
+      "\t${2:// if body}",
+      "} else {",
+      "\t${3:// else body}",
+      "}"
+    ],
+    "description": "UTS if-else语句"
+  },
+  "UTS For Loop": {
+    "prefix": "for",
+    "body": [
+      "for (let ${1:i} = 0; ${1:i} < ${2:length}; ${1:i}++) {",
+      "\t${3:// loop body}",
+      "}"
+    ],
+    "description": "UTS for循环"
+  },
+  "UTS For-In Loop": {
+    "prefix": "forin",
+    "body": [
+      "for (let ${1:item} in ${2:object}) {",
+      "\t${3:// loop body}",
+      "}"
+    ],
+    "description": "UTS for-in循环"
+  },
+  "UTS While Loop": {
+    "prefix": "while",
+    "body": [
+      "while (${1:condition}) {",
+      "\t${2:// loop body}",
+      "}"
+    ],
+    "description": "UTS while循环"
+  },
+  "UTS Try-Catch": {
+    "prefix": "try",
+    "body": [
+      "try {",
+      "\t${1:// try body}",
+      "} catch (${2:error}) {",
+      "\t${3:// catch body}",
+      "}"
+    ],
+    "description": "UTS try-catch语句"
+  },
+  "UTS Console Log": {
+    "prefix": "console",
+    "body": [
+      "console.log(${1:message});"
+    ],
+    "description": "UTS console.log"
+  },
+  "UTS Array": {
+    "prefix": "array",
+    "body": [
+      "const ${1:arrayName}: Array<${2:string}> = [${3}];"
+    ],
+    "description": "声明UTS数组"
+  },
+  "UTS Object": {
+    "prefix": "object",
+    "body": [
+      "const ${1:objectName}: UTSJSONObject = {",
+      "\t${2:// object properties}",
+      "};"
+    ],
+    "description": "声明UTS对象"
+  },
+  "UTS Type Definition": {
+    "prefix": "type",
+    "body": [
+      "type ${1:TypeName} = ${2:string};"
+    ],
+    "description": "定义UTS类型"
+  },
+  "UTS Import": {
+    "prefix": "import",
+    "body": [
+      "import { ${1:module} } from '${2:path}';"
+    ],
+    "description": "UTS import语句"
+  },
+  "UTS Export": {
+    "prefix": "export",
+    "body": [
+      "export { ${1:module} };"
+    ],
+    "description": "UTS export语句"
+  },
+  "UTS Async Function": {
+    "prefix": "async",
+    "body": [
+      "async function ${1:functionName}(${2:params}): Promise<${3:void}> {",
+      "\t${4:// async function body}",
+      "}"
+    ],
+    "description": "声明UTS异步函数"
+  },
+  "UTS Await": {
+    "prefix": "await",
+    "body": [
+      "const ${1:result} = await ${2:promise};"
+    ],
+    "description": "UTS await语句"
+  }
+} 
