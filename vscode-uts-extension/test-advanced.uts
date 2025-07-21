@@ -1,0 +1,473 @@
+// UTS高级语法测试文件 - 展示完整的TypeScript语法支持
+
+// 1. 基础类型和变量声明
+let message: string = "Hello UTS!";
+const PI: number = 3.14159;
+const isActive: boolean = true;
+const user: any = { name: "John", age: 30 };
+
+// 2. 泛型支持
+function identity<T>(arg: T): T {
+    return arg;
+}
+
+const result = identity<string>("Hello");
+const numberResult = identity<number>(42);
+
+// 3. 接口定义
+interface User {
+    id: number;
+    name: string;
+    email?: string; // 可选属性
+    readonly createdAt: Date; // 只读属性
+}
+
+interface AdminUser extends User {
+    role: 'admin' | 'super_admin'; // 联合类型
+    permissions: string[];
+}
+
+// 4. 类型别名
+type Point = {
+    x: number;
+    y: number;
+};
+
+type Status = 'pending' | 'approved' | 'rejected';
+
+type Coordinates = Point & { z: number }; // 交叉类型
+
+// 5. 枚举
+enum Color {
+    Red = 'RED',
+    Green = 'GREEN',
+    Blue = 'BLUE'
+}
+
+enum Direction {
+    North,
+    South,
+    East,
+    West
+}
+
+// 6. 类定义
+class Calculator {
+    private result: number = 0;
+
+    constructor(initialValue: number = 0) {
+        this.result = initialValue;
+    }
+
+    add(value: number): this {
+        this.result += value;
+        return this;
+    }
+
+    subtract(value: number): this {
+        this.result -= value;
+        return this;
+    }
+
+    getResult(): number {
+        return this.result;
+    }
+
+    static create(): Calculator {
+        return new Calculator();
+    }
+}
+
+// 7. 装饰器支持
+function log(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    const originalMethod = descriptor.value;
+    descriptor.value = function (...args: any[]) {
+        console.log(`Calling ${propertyKey} with args:`, args);
+        return originalMethod.apply(this, args);
+    };
+    return descriptor;
+}
+
+class Example {
+    method(value: string): string {
+        return `Processed: ${value}`;
+    }
+}
+
+// 8. 高级类型
+type PartialUser = Partial<User>;
+type RequiredUser = Required<User>;
+type ReadonlyUser = Readonly<User>;
+type UserKeys = keyof User;
+type UserValues = User[UserKeys];
+
+// 9. 条件类型
+type NonNullableType<T> = T extends null | undefined ? never : T;
+type ArrayElement<T> = T extends Array<infer U> ? U : never;
+
+// 10. 映射类型
+type OptionalType<T> = {
+    [K in keyof T]?: T[K];
+};
+
+type ReadonlyType<T> = {
+    readonly [K in keyof T]: T[K];
+};
+
+// 11. 模板字符串类型
+type EmailLocale = 'en' | 'zh';
+type EmailTemplate = `welcome_${EmailLocale}`;
+
+// 12. 函数重载
+function process(value: string): string;
+function process(value: number): number;
+function process(value: string | number): string | number {
+    if (typeof value === 'string') {
+        return value.toUpperCase();
+    } else {
+        return value * 2;
+    }
+}
+
+// 13. 异步函数和Promise
+async function fetchUser(id: number): Promise<User> {
+    const response = await fetch(`/api/users/${id}`);
+    return response.json();
+}
+
+// 14. 命名空间
+namespace MathUtils {
+    export function add(a: number, b: number): number {
+        return a + b;
+    }
+
+    export function multiply(a: number, b: number): number {
+        return a * b;
+    }
+}
+
+// 15. 模块声明
+declare module 'external-library' {
+    export function externalFunction(): void;
+    export interface ExternalInterface {
+        property: string;
+    }
+}
+
+// 16. 三斜杠指令
+/// <reference path="./types.d.ts" />
+
+// 17. 环境声明
+declare global {
+    interface Window {
+        customProperty: string;
+    }
+}
+
+// 18. 高级数组操作
+const numbers: number[] = [1, 2, 3, 4, 5];
+const doubled = numbers.map(n => n * 2);
+const evenNumbers = numbers.filter(n => n % 2 === 0);
+const totalSum = numbers.reduce((acc, n) => acc + n, 0);
+
+// 19. 解构赋值
+const { name: userName, age: userAge } = user;
+const [first, second, ...rest] = numbers;
+
+// 20. 展开运算符
+const newArray = [...numbers, 6, 7, 8];
+const newObject = { ...user, role: 'user' };
+
+// 21. 可选链和空值合并
+const userEmail = user?.email ?? 'no-email@example.com';
+const userName = user?.name?.toUpperCase();
+
+// 22. 类型断言
+const canvas = document.getElementById('canvas') as HTMLCanvasElement;
+const value = ("test" as string).toUpperCase();
+
+// 23. 工具类型使用
+type UserWithoutId = Omit<User, 'id'>;
+type UserOnlyName = Pick<User, 'name'>;
+type UserWithOptionalEmail = Partial<Pick<User, 'email'>>;
+
+// 24. 条件类型和infer
+type ReturnTypeCustom<T> = T extends (...args: any[]) => infer R ? R : any;
+type ParametersCustom<T> = T extends (...args: infer P) => any ? P : never;
+
+// 25. 模板字面量类型
+type EventName<T extends string> = `${T}Changed`;
+type Direction = 'top' | 'bottom';
+type VerticalMovement = EventName<Direction>;
+
+// 26. 递归类型
+type JSONValue = 
+    | string
+    | number
+    | boolean
+    | null
+    | JSONValue[]
+    | { [key: string]: JSONValue };
+
+// 27. 索引访问类型
+type UserName = User['name'];
+type UserProperty = User[keyof User];
+
+// 28. 映射类型的高级用法
+type Getters<T> = {
+    [K in keyof T as `get${Capitalize<string & K>}`]: () => T[K];
+};
+
+type Setters<T> = {
+    [K in keyof T as `set${Capitalize<string & K>}`]: (value: T[K]) => void;
+};
+
+// 29. 条件类型的高级用法
+type IsString<T> = T extends string ? true : false;
+type IsArray<T> = T extends Array<any> ? true : false;
+
+// 30. 联合类型和交叉类型
+type StringOrNumber = string | number;
+type StringAndNumber = string & number; // 这在实际中是不可能的，但语法正确
+
+// 31. 字面量类型
+type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
+type StatusCode = 200 | 201 | 400 | 401 | 404 | 500;
+
+// 32. 函数类型
+type BinaryFunction = (a: number, b: number) => number;
+type AsyncFunction<T> = (...args: any[]) => Promise<T>;
+
+// 33. 构造函数类型
+type Constructor<T> = new (...args: any[]) => T;
+type UserConstructor = Constructor<User>;
+
+// 34. 索引签名
+interface Dictionary<T> {
+    [key: string]: T;
+}
+
+interface NumberDictionary {
+    [index: number]: string;
+    length: number;
+}
+
+// 35. 调用签名
+interface Callable {
+    (x: number, y: number): number;
+}
+
+// 36. 构造签名
+interface Constructable {
+    new (x: number, y: number): Point;
+}
+
+// 37. 泛型约束
+interface Lengthwise {
+    length: number;
+}
+
+function loggingIdentity<T extends Lengthwise>(arg: T): T {
+    console.log(arg.length);
+    return arg;
+}
+
+// 38. 多重约束
+interface Colorful {
+    color: string;
+}
+
+interface Circle {
+    radius: number;
+}
+
+function draw<T extends Colorful & Circle>(shape: T): void {
+    console.log(`Drawing ${shape.color} circle with radius ${shape.radius}`);
+}
+
+// 39. 默认类型参数
+interface DefaultProps<T = string> {
+    value: T;
+    onChange: (value: T) => void;
+}
+
+// 40. 条件类型中的infer
+type ElementType<T> = T extends (infer U)[] ? U : never;
+type FirstElement<T> = T extends [infer F, ...any[]] ? F : never;
+
+// 41. 映射类型中的条件
+type ConditionalKeys<T> = {
+    [K in keyof T]: T[K] extends string ? K : never;
+}[keyof T];
+
+// 42. 递归条件类型
+type DeepPartial<T> = {
+    [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
+};
+
+// 43. 模板字面量类型的高级用法
+type EventNames<T extends string> = `${T}Start` | `${T}End` | `${T}Progress`;
+
+// 44. 类型谓词
+function isString(value: any): value is string {
+    return typeof value === 'string';
+}
+
+function isNumber(value: any): value is number {
+    return typeof value === 'number';
+}
+
+// 45. 断言函数
+function assertIsString(value: any): asserts value is string {
+    if (typeof value !== 'string') {
+        throw new Error('Expected string');
+    }
+}
+
+// 46. 高级联合类型
+type Shape = 
+    | { kind: 'circle'; radius: number }
+    | { kind: 'rectangle'; width: number; height: number }
+    | { kind: 'square'; size: number };
+
+function getArea(shape: Shape): number {
+    switch (shape.kind) {
+        case 'circle':
+            return Math.PI * shape.radius ** 2;
+        case 'rectangle':
+            return shape.width * shape.height;
+        case 'square':
+            return shape.size ** 2;
+    }
+}
+
+// 47. 条件类型的高级模式
+type NonFunctionPropertyNames<T> = {
+    [K in keyof T]: T[K] extends Function ? never : K;
+}[keyof T];
+
+type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
+
+// 48. 映射类型的高级模式
+type Mutable<T> = {
+    -readonly [P in keyof T]: T[P];
+};
+
+type Optional<T> = {
+    [P in keyof T]?: T[P];
+};
+
+// 49. 条件类型中的分布式
+type Distributed<T> = T extends any ? T[] : never;
+type DistributedResult = Distributed<string | number>; // string[] | number[]
+
+// 50. 高级工具类型
+type Awaited<T> = T extends Promise<infer U> ? U : T;
+type Promisify<T> = T extends Promise<any> ? T : Promise<T>;
+
+// 使用示例
+const calculator = new Calculator(10);
+const result1 = calculator.add(5).subtract(2).getResult();
+console.log(result1); // 13
+
+const user1: User = {
+    id: 1,
+    name: "Alice",
+    createdAt: new Date()
+};
+
+const adminUser: AdminUser = {
+    id: 2,
+    name: "Bob",
+    role: 'admin',
+    permissions: ['read', 'write'],
+    createdAt: new Date()
+};
+
+// 测试各种类型
+const point: Point = { x: 10, y: 20 };
+const status: Status = 'pending';
+const coords: Coordinates = { x: 10, y: 20, z: 30 };
+
+// 测试函数
+const processedString = process("hello");
+const processedNumber = process(42);
+
+// 测试异步函数
+async function testAsync() {
+    try {
+        const user = await fetchUser(1);
+        console.log(user.name);
+    } catch (error) {
+        console.error('Error fetching user:', error);
+    }
+}
+
+// 测试命名空间
+const mathSum = MathUtils.add(5, 3);
+const product = MathUtils.multiply(4, 2);
+
+// 测试高级类型
+type UserPartial = Partial<User>;
+type UserRequired = Required<User>;
+type UserReadonly = Readonly<User>;
+
+// 测试条件类型
+type StringCheck = IsString<string>; // true
+type ArrayCheck = IsArray<number[]>; // true
+
+// 测试映射类型
+type UserGetters = Getters<User>;
+type UserSetters = Setters<User>;
+
+// 测试递归类型
+const jsonData: JSONValue = {
+    name: "John",
+    age: 30,
+    active: true,
+    hobbies: ["reading", "gaming"],
+    address: {
+        street: "123 Main St",
+        city: "Anytown"
+    }
+};
+
+// 测试类型谓词
+function processValue(value: string | number) {
+    if (isString(value)) {
+        console.log(value.toUpperCase());
+    } else if (isNumber(value)) {
+        console.log(value.toFixed(2));
+    }
+}
+
+// 测试断言函数
+function processString(value: any) {
+    assertIsString(value);
+    console.log(value.toUpperCase()); // TypeScript知道value是string
+}
+
+// 测试高级联合类型
+const circle: Shape = { kind: 'circle', radius: 5 };
+const rectangle: Shape = { kind: 'rectangle', width: 10, height: 20 };
+const square: Shape = { kind: 'square', size: 15 };
+
+console.log(getArea(circle)); // 78.54...
+console.log(getArea(rectangle)); // 200
+console.log(getArea(square)); // 225
+
+// 测试条件类型
+type NonFunctionProps = NonFunctionProperties<User>; // 只包含非函数属性
+
+// 测试分布式条件类型
+type DistributedExample = Distributed<string | number>; // string[] | number[]
+
+// 测试Awaited类型
+type PromiseResult = Awaited<Promise<string>>; // string
+type NonPromiseResult = Awaited<string>; // string
+
+// 测试Promisify类型
+type PromisifiedString = Promisify<string>; // Promise<string>
+type AlreadyPromise = Promisify<Promise<number>>; // Promise<number>
+
+console.log("UTS高级语法测试完成！"); 

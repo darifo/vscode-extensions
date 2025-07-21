@@ -25,6 +25,18 @@
     },
     {
       "include": "#variables"
+    },
+    {
+      "include": "#decorators"
+    },
+    {
+      "include": "#generics"
+    },
+    {
+      "include": "#template-literals"
+    },
+    {
+      "include": "#jsx"
     }
   ],
   "repository": {
@@ -38,6 +50,10 @@
           "name": "comment.block.uts",
           "begin": "/\\*",
           "end": "\\*/"
+        },
+        {
+          "name": "comment.line.triple-slash.uts",
+          "match": "///.*$"
         }
       ]
     },
@@ -86,7 +102,19 @@
       "patterns": [
         {
           "name": "constant.numeric.uts",
-          "match": "\\b\\d+(\\.\\d+)?\\b"
+          "match": "\\b\\d+(\\.\\d+)?([eE][+-]?\\d+)?\\b"
+        },
+        {
+          "name": "constant.numeric.hex.uts",
+          "match": "\\b0[xX][0-9a-fA-F]+\\b"
+        },
+        {
+          "name": "constant.numeric.binary.uts",
+          "match": "\\b0[bB][01]+\\b"
+        },
+        {
+          "name": "constant.numeric.octal.uts",
+          "match": "\\b0[oO][0-7]+\\b"
         }
       ]
     },
@@ -94,23 +122,35 @@
       "patterns": [
         {
           "name": "keyword.control.uts",
-          "match": "\\b(if|else|switch|case|default|for|while|do|break|continue|return|throw|try|catch|finally|in|of|typeof|instanceof|new|delete|void|with|yield|await|async)\\b"
+          "match": "\\b(if|else|switch|case|default|for|while|do|break|continue|return|throw|try|catch|finally|in|of|typeof|instanceof|new|delete|void|with|yield|await|async|from|of|in)\\b"
         },
         {
           "name": "keyword.other.uts",
-          "match": "\\b(let|const|var|function|class|interface|type|namespace|module|import|export|from|as|default|extends|implements|static|public|private|protected|readonly|abstract|virtual|override|sealed|final|enum|union|intersection|keyof|typeof|infer|extends|implements|super|this|null|undefined|true|false|Infinity|NaN)\\b"
+          "match": "\\b(let|const|var|function|class|interface|type|namespace|module|import|export|from|as|default|extends|implements|static|public|private|protected|readonly|abstract|virtual|override|sealed|final|enum|union|intersection|keyof|typeof|infer|extends|implements|super|this|null|undefined|true|false|Infinity|NaN|any|unknown|never|void|object|string|number|boolean|symbol|bigint|never|unknown|void|object|string|number|boolean|symbol|bigint|Date|RegExp|Error|Function|Promise|Map|Set|WeakMap|WeakSet|ArrayBuffer|DataView|Int8Array|Uint8Array|Uint8ClampedArray|Int16Array|Uint16Array|Int32Array|Uint32Array|Float32Array|Float64Array|BigInt64Array|BigUint64Array|UTSJSONObject|UTSJSONValue|UTSArray|UTSString|UTSNumber|UTSBoolean)\\b"
+        },
+        {
+          "name": "keyword.operator.uts",
+          "match": "\\b(and|or|not|is|as)\\b"
         }
       ]
     },
     "types": {
       "patterns": [
         {
-          "name": "storage.type.uts",
-          "match": "\\b(string|number|boolean|object|array|any|void|never|unknown|undefined|null|symbol|bigint|Date|RegExp|Error|Function|Promise|Map|Set|WeakMap|WeakSet|ArrayBuffer|DataView|Int8Array|Uint8Array|Uint8ClampedArray|Int16Array|Uint16Array|Int32Array|Uint32Array|Float32Array|Float64Array|BigInt64Array|BigUint64Array)\\b"
+          "name": "storage.type.primitive.uts",
+          "match": "\\b(string|number|boolean|object|array|any|void|never|unknown|undefined|null|symbol|bigint)\\b"
+        },
+        {
+          "name": "storage.type.builtin.uts",
+          "match": "\\b(Date|RegExp|Error|Function|Promise|Map|Set|WeakMap|WeakSet|ArrayBuffer|DataView|Int8Array|Uint8Array|Uint8ClampedArray|Int16Array|Uint16Array|Int32Array|Uint32Array|Float32Array|Float64Array|BigInt64Array|BigUint64Array)\\b"
         },
         {
           "name": "storage.type.uts",
           "match": "\\b(UTSJSONObject|UTSJSONValue|UTSArray|UTSString|UTSNumber|UTSBoolean)\\b"
+        },
+        {
+          "name": "storage.type.generic.uts",
+          "match": "\\b(Array|Promise|Map|Set|WeakMap|WeakSet|ReadonlyArray|Partial|Required|Readonly|Pick|Record|Exclude|Extract|ReturnType|InstanceType|Parameters|ConstructorParameters|ThisParameterType|OmitThisParameter|ThisType|Uppercase|Lowercase|Capitalize|Uncapitalize)\\b"
         }
       ]
     },
@@ -119,14 +159,46 @@
         {
           "name": "entity.name.function.uts",
           "match": "\\b\\w+(?=\\s*\\()"
+        },
+        {
+          "name": "entity.name.function.method.uts",
+          "match": "\\.\\s*(\\w+)(?=\\s*\\()"
         }
       ]
     },
     "operators": {
       "patterns": [
         {
-          "name": "keyword.operator.uts",
-          "match": "\\+\\+|--|\\+|-|\\*|/|%|\\*\\*|==|!=|===|!==|<|<=|>|>=|<<|>>|>>>|&|\\||\\^|!|~|&&|\\|\\||\\?|:|=|\\+=|-=|\\*=|/=|%=|\\*\\*=|<<=|>>=|>>>=|&=|\\|=|\\^=|=>|\\?\\?|\\?\\."
+          "name": "keyword.operator.arithmetic.uts",
+          "match": "\\+\\+|--|\\+|-|\\*|/|%|\\*\\*"
+        },
+        {
+          "name": "keyword.operator.comparison.uts",
+          "match": "==|!=|===|!==|<|<=|>|>="
+        },
+        {
+          "name": "keyword.operator.bitwise.uts",
+          "match": "<<|>>|>>>|&|\\||\\^|~"
+        },
+        {
+          "name": "keyword.operator.logical.uts",
+          "match": "&&|\\|\\||!"
+        },
+        {
+          "name": "keyword.operator.assignment.uts",
+          "match": "=|\\+=|-=|\\*=|/=|%=|\\*\\*=|<<=|>>=|>>>=|&=|\\|=|\\^="
+        },
+        {
+          "name": "keyword.operator.conditional.uts",
+          "match": "\\?|:|\\?\\?|\\?\\."
+        },
+        {
+          "name": "keyword.operator.spread.uts",
+          "match": "\\.\\.\\."
+        },
+        {
+          "name": "keyword.operator.arrow.uts",
+          "match": "=>"
         }
       ]
     },
@@ -135,6 +207,96 @@
         {
           "name": "variable.other.uts",
           "match": "\\b\\w+\\b"
+        },
+        {
+          "name": "variable.parameter.uts",
+          "match": "\\b\\w+(?=\\s*:)"
+        }
+      ]
+    },
+    "decorators": {
+      "patterns": [
+        {
+          "name": "meta.decorator.uts",
+          "begin": "@",
+          "end": "(?=\\s|$)",
+          "patterns": [
+            {
+              "name": "entity.name.decorator.uts",
+              "match": "\\b\\w+\\b"
+            }
+          ]
+        }
+      ]
+    },
+    "generics": {
+      "patterns": [
+        {
+          "name": "meta.generic.uts",
+          "begin": "<",
+          "end": ">",
+          "patterns": [
+            {
+              "include": "#types"
+            },
+            {
+              "include": "#keywords"
+            },
+            {
+              "include": "#operators"
+            },
+            {
+              "include": "#variables"
+            }
+          ]
+        }
+      ]
+    },
+    "template-literals": {
+      "patterns": [
+        {
+          "name": "string.template.uts",
+          "begin": "`",
+          "end": "`",
+          "patterns": [
+            {
+              "name": "constant.character.escape.uts",
+              "match": "\\\\."
+            },
+            {
+              "name": "variable.other.uts",
+              "match": "\\$\\{[^}]*\\}"
+            }
+          ]
+        }
+      ]
+    },
+    "jsx": {
+      "patterns": [
+        {
+          "name": "meta.tag.uts",
+          "begin": "<",
+          "end": ">",
+          "patterns": [
+            {
+              "name": "entity.name.tag.uts",
+              "match": "\\b\\w+\\b"
+            },
+            {
+              "name": "entity.other.attribute-name.uts",
+              "match": "\\b\\w+\\b"
+            },
+            {
+              "name": "string.quoted.double.uts",
+              "begin": "\"",
+              "end": "\""
+            },
+            {
+              "name": "string.quoted.single.uts",
+              "begin": "'",
+              "end": "'"
+            }
+          ]
         }
       ]
     }

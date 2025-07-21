@@ -6,12 +6,14 @@
   "brackets": [
     ["{", "}"],
     ["[", "]"],
-    ["(", ")"]
+    ["(", ")"],
+    ["<", ">"]
   ],
   "autoClosingPairs": [
     { "open": "{", "close": "}" },
     { "open": "[", "close": "]" },
     { "open": "(", "close": ")" },
+    { "open": "<", "close": ">", "notIn": ["string", "comment"] },
     { "open": "\"", "close": "\"", "notIn": ["string"] },
     { "open": "'", "close": "'", "notIn": ["string"] },
     { "open": "`", "close": "`", "notIn": ["string"] }
@@ -20,18 +22,46 @@
     ["{", "}"],
     ["[", "]"],
     ["(", ")"],
+    ["<", ">"],
     ["\"", "\""],
     ["'", "'"],
     ["`", "`"]
   ],
   "indentationRules": {
-    "increaseIndentPattern": "\\{[^}]*$|\\([^)]*$",
-    "decreaseIndentPattern": "^[^{]*\\}|^[^(]*\\)"
+    "increaseIndentPattern": "\\{[^}]*$|\\([^)]*$|\\[[^\\]]*$|<[^>]*$|\\b(if|else|for|while|try|catch|finally|switch|case|default|do|with|function|class|interface|enum|namespace|module|export|import|declare|namespace|module|export|import|declare)\\b[^}]*$",
+    "decreaseIndentPattern": "^[^{]*\\}|^[^(]*\\)|^[^\\[]*\\]|^[^<]*>|^\\s*(else|catch|finally|case|default)\\b"
   },
   "folding": {
     "markers": {
       "start": "^\\s*//\\s*#?region\\b",
       "end": "^\\s*//\\s*#?endregion\\b"
     }
-  }
+  },
+  "wordPattern": "(-?\\d*\\.\\d\\w*)|([^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\-\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)",
+  "onEnterRules": [
+    {
+      "beforeText": "^\\s*//.*$",
+      "action": { "indent": "none", "appendText": "// " }
+    },
+    {
+      "beforeText": "^\\s*\\{",
+      "afterText": "^\\s*\\}",
+      "action": { "indent": "indentOutdent", "appendText": "" }
+    },
+    {
+      "beforeText": "^\\s*\\(",
+      "afterText": "^\\s*\\)",
+      "action": { "indent": "indentOutdent", "appendText": "" }
+    },
+    {
+      "beforeText": "^\\s*\\[",
+      "afterText": "^\\s*\\]",
+      "action": { "indent": "indentOutdent", "appendText": "" }
+    },
+    {
+      "beforeText": "^\\s*<",
+      "afterText": "^\\s*>",
+      "action": { "indent": "indentOutdent", "appendText": "" }
+    }
+  ]
 }

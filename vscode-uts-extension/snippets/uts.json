@@ -22,6 +22,15 @@
     ],
     "description": "声明一个UTS函数"
   },
+  "UTS Generic Function": {
+    "prefix": "generic",
+    "body": [
+      "function ${1:functionName}<T>(${2:params}): ${3:Array<T>} {",
+      "\t${4:// function body}",
+      "}"
+    ],
+    "description": "声明一个UTS泛型函数"
+  },
   "UTS Class": {
     "prefix": "class",
     "body": [
@@ -39,6 +48,62 @@
       "}"
     ],
     "description": "声明一个UTS接口"
+  },
+  "UTS Type Alias": {
+    "prefix": "type",
+    "body": [
+      "type ${1:TypeName} = ${2:string};"
+    ],
+    "description": "定义UTS类型别名"
+  },
+  "UTS Union Type": {
+    "prefix": "union",
+    "body": [
+      "type ${1:TypeName} = ${2:string} | ${3:number};"
+    ],
+    "description": "定义UTS联合类型"
+  },
+  "UTS Intersection Type": {
+    "prefix": "intersection",
+    "body": [
+      "type ${1:TypeName} = ${2:Interface1} & ${3:Interface2};"
+    ],
+    "description": "定义UTS交叉类型"
+  },
+  "UTS Enum": {
+    "prefix": "enum",
+    "body": [
+      "enum ${1:EnumName} {",
+      "\t${2:// enum members}",
+      "}"
+    ],
+    "description": "声明一个UTS枚举"
+  },
+  "UTS Namespace": {
+    "prefix": "namespace",
+    "body": [
+      "namespace ${1:NamespaceName} {",
+      "\t${2:// namespace members}",
+      "}"
+    ],
+    "description": "声明一个UTS命名空间"
+  },
+  "UTS Module": {
+    "prefix": "module",
+    "body": [
+      "module ${1:ModuleName} {",
+      "\t${2:// module members}",
+      "}"
+    ],
+    "description": "声明一个UTS模块"
+  },
+  "UTS Decorator": {
+    "prefix": "decorator",
+    "body": [
+      "@${1:DecoratorName}",
+      "${2:// decorated item}"
+    ],
+    "description": "使用UTS装饰器"
   },
   "UTS If Statement": {
     "prefix": "if",
@@ -60,6 +125,19 @@
     ],
     "description": "UTS if-else语句"
   },
+  "UTS Switch Statement": {
+    "prefix": "switch",
+    "body": [
+      "switch (${1:expression}) {",
+      "\tcase ${2:value}:",
+      "\t\t${3:// case body}",
+      "\t\tbreak;",
+      "\tdefault:",
+      "\t\t${4:// default body}",
+      "}"
+    ],
+    "description": "UTS switch语句"
+  },
   "UTS For Loop": {
     "prefix": "for",
     "body": [
@@ -78,6 +156,15 @@
     ],
     "description": "UTS for-in循环"
   },
+  "UTS For-Of Loop": {
+    "prefix": "forof",
+    "body": [
+      "for (let ${1:item} of ${2:iterable}) {",
+      "\t${3:// loop body}",
+      "}"
+    ],
+    "description": "UTS for-of循环"
+  },
   "UTS While Loop": {
     "prefix": "while",
     "body": [
@@ -86,6 +173,15 @@
       "}"
     ],
     "description": "UTS while循环"
+  },
+  "UTS Do-While Loop": {
+    "prefix": "dowhile",
+    "body": [
+      "do {",
+      "\t${1:// loop body}",
+      "} while (${2:condition});"
+    ],
+    "description": "UTS do-while循环"
   },
   "UTS Try-Catch": {
     "prefix": "try",
@@ -97,6 +193,19 @@
       "}"
     ],
     "description": "UTS try-catch语句"
+  },
+  "UTS Try-Catch-Finally": {
+    "prefix": "tryfinally",
+    "body": [
+      "try {",
+      "\t${1:// try body}",
+      "} catch (${2:error}) {",
+      "\t${3:// catch body}",
+      "} finally {",
+      "\t${4:// finally body}",
+      "}"
+    ],
+    "description": "UTS try-catch-finally语句"
   },
   "UTS Console Log": {
     "prefix": "console",
@@ -121,13 +230,6 @@
     ],
     "description": "声明UTS对象"
   },
-  "UTS Type Definition": {
-    "prefix": "type",
-    "body": [
-      "type ${1:TypeName} = ${2:string};"
-    ],
-    "description": "定义UTS类型"
-  },
   "UTS Import": {
     "prefix": "import",
     "body": [
@@ -141,6 +243,13 @@
       "export { ${1:module} };"
     ],
     "description": "UTS export语句"
+  },
+  "UTS Default Export": {
+    "prefix": "exportdefault",
+    "body": [
+      "export default ${1:module};"
+    ],
+    "description": "UTS默认导出"
   },
   "UTS Async Function": {
     "prefix": "async",
@@ -157,5 +266,271 @@
       "const ${1:result} = await ${2:promise};"
     ],
     "description": "UTS await语句"
+  },
+  "UTS Arrow Function": {
+    "prefix": "arrow",
+    "body": [
+      "const ${1:functionName} = (${2:params}): ${3:void} => {",
+      "\t${4:// function body}",
+      "};"
+    ],
+    "description": "UTS箭头函数"
+  },
+  "UTS Generic Arrow Function": {
+    "prefix": "genericarrow",
+    "body": [
+      "const ${1:functionName} = <T>(${2:params}): ${3:Array<T>} => {",
+      "\t${4:// function body}",
+      "};"
+    ],
+    "description": "UTS泛型箭头函数"
+  },
+  "UTS Class Method": {
+    "prefix": "method",
+    "body": [
+      "${1:public} ${2:methodName}(${3:params}): ${4:void} {",
+      "\t${5:// method body}",
+      "}"
+    ],
+    "description": "UTS类方法"
+  },
+  "UTS Class Property": {
+    "prefix": "property",
+    "body": [
+      "${1:public} ${2:propertyName}: ${3:string} = ${4:\"value\"};"
+    ],
+    "description": "UTS类属性"
+  },
+  "UTS Getter": {
+    "prefix": "getter",
+    "body": [
+      "get ${1:propertyName}(): ${2:string} {",
+      "\treturn ${3:this._property};",
+      "}"
+    ],
+    "description": "UTS getter方法"
+  },
+  "UTS Setter": {
+    "prefix": "setter",
+    "body": [
+      "set ${1:propertyName}(value: ${2:string}) {",
+      "\t${3:this._property} = value;",
+      "}"
+    ],
+    "description": "UTS setter方法"
+  },
+  "UTS Constructor": {
+    "prefix": "constructor",
+    "body": [
+      "constructor(${1:params}) {",
+      "\t${2:// constructor body}",
+      "}"
+    ],
+    "description": "UTS构造函数"
+  },
+  "UTS Static Method": {
+    "prefix": "static",
+    "body": [
+      "static ${1:methodName}(${2:params}): ${3:void} {",
+      "\t${4:// static method body}",
+      "}"
+    ],
+    "description": "UTS静态方法"
+  },
+  "UTS Template Literal": {
+    "prefix": "template",
+    "body": [
+      "const ${1:message} = `Hello ${2:name}!`;"
+    ],
+    "description": "UTS模板字符串"
+  },
+  "UTS Destructuring": {
+    "prefix": "destructure",
+    "body": [
+      "const { ${1:property1}, ${2:property2} } = ${3:object};"
+    ],
+    "description": "UTS解构赋值"
+  },
+  "UTS Spread Operator": {
+    "prefix": "spread",
+    "body": [
+      "const ${1:newArray} = [...${2:array}, ${3:item}];"
+    ],
+    "description": "UTS展开运算符"
+  },
+  "UTS Optional Chaining": {
+    "prefix": "optional",
+    "body": [
+      "const ${1:value} = ${2:object}?.${3:property}?.${4:method}();"
+    ],
+    "description": "UTS可选链操作符"
+  },
+  "UTS Nullish Coalescing": {
+    "prefix": "nullish",
+    "body": [
+      "const ${1:value} = ${2:expression} ?? ${3:defaultValue};"
+    ],
+    "description": "UTS空值合并操作符"
+  },
+  "UTS Type Assertion": {
+    "prefix": "assert",
+    "body": [
+      "const ${1:value} = ${2:expression} as ${3:string};"
+    ],
+    "description": "UTS类型断言"
+  },
+  "UTS Keyof": {
+    "prefix": "keyof",
+    "body": [
+      "type ${1:Keys} = keyof ${2:ObjectType};"
+    ],
+    "description": "UTS keyof操作符"
+  },
+  "UTS Pick": {
+    "prefix": "pick",
+    "body": [
+      "type ${1:NewType} = Pick<${2:ObjectType}, '${3:property}'>;"
+    ],
+    "description": "UTS Pick工具类型"
+  },
+  "UTS Omit": {
+    "prefix": "omit",
+    "body": [
+      "type ${1:NewType} = Omit<${2:ObjectType}, '${3:property}'>;"
+    ],
+    "description": "UTS Omit工具类型"
+  },
+  "UTS Partial": {
+    "prefix": "partial",
+    "body": [
+      "type ${1:NewType} = Partial<${2:ObjectType}>;"
+    ],
+    "description": "UTS Partial工具类型"
+  },
+  "UTS Required": {
+    "prefix": "required",
+    "body": [
+      "type ${1:NewType} = Required<${2:ObjectType}>;"
+    ],
+    "description": "UTS Required工具类型"
+  },
+  "UTS Readonly": {
+    "prefix": "readonly",
+    "body": [
+      "type ${1:NewType} = Readonly<${2:ObjectType}>;"
+    ],
+    "description": "UTS Readonly工具类型"
+  },
+  "UTS Record": {
+    "prefix": "record",
+    "body": [
+      "type ${1:NewType} = Record<${2:KeyType}, ${3:ValueType}>;"
+    ],
+    "description": "UTS Record工具类型"
+  },
+  "UTS ReturnType": {
+    "prefix": "returntype",
+    "body": [
+      "type ${1:ReturnType} = ReturnType<typeof ${2:functionName}>;"
+    ],
+    "description": "UTS ReturnType工具类型"
+  },
+  "UTS Parameters": {
+    "prefix": "parameters",
+    "body": [
+      "type ${1:ParamsType} = Parameters<typeof ${2:functionName}>;"
+    ],
+    "description": "UTS Parameters工具类型"
+  },
+  "UTS InstanceType": {
+    "prefix": "instancetype",
+    "body": [
+      "type ${1:InstanceType} = InstanceType<typeof ${2:ClassName}>;"
+    ],
+    "description": "UTS InstanceType工具类型"
+  },
+  "UTS Conditional Type": {
+    "prefix": "conditional",
+    "body": [
+      "type ${1:ResultType} = ${2:CheckType} extends ${3:ExtendsType} ? ${4:TrueType} : ${5:FalseType};"
+    ],
+    "description": "UTS条件类型"
+  },
+  "UTS Mapped Type": {
+    "prefix": "mapped",
+    "body": [
+      "type ${1:MappedType} = {",
+      "\t[K in keyof ${2:ObjectType}]: ${3:NewType};",
+      "};"
+    ],
+    "description": "UTS映射类型"
+  },
+  "UTS Index Signature": {
+    "prefix": "index",
+    "body": [
+      "interface ${1:InterfaceName} {",
+      "\t[key: ${2:string}]: ${3:any};",
+      "}"
+    ],
+    "description": "UTS索引签名"
+  },
+  "UTS Call Signature": {
+    "prefix": "call",
+    "body": [
+      "interface ${1:InterfaceName} {",
+      "\t(${2:params}): ${3:ReturnType};",
+      "}"
+    ],
+    "description": "UTS调用签名"
+  },
+  "UTS Construct Signature": {
+    "prefix": "construct",
+    "body": [
+      "interface ${1:InterfaceName} {",
+      "\tnew (${2:params}): ${3:InstanceType};",
+      "}"
+    ],
+    "description": "UTS构造签名"
+  },
+  "UTS Generic Interface": {
+    "prefix": "genericinterface",
+    "body": [
+      "interface ${1:InterfaceName}<T> {",
+      "\t${2:// interface members}",
+      "}"
+    ],
+    "description": "UTS泛型接口"
+  },
+  "UTS Generic Class": {
+    "prefix": "genericclass",
+    "body": [
+      "class ${1:ClassName}<T> {",
+      "\t${2:// class members}",
+      "}"
+    ],
+    "description": "UTS泛型类"
+  },
+  "UTS Module Declaration": {
+    "prefix": "moduledeclare",
+    "body": [
+      "declare module '${1:moduleName}' {",
+      "\t${2:// module declaration}",
+      "}"
+    ],
+    "description": "UTS模块声明"
+  },
+  "UTS Ambient Declaration": {
+    "prefix": "declare",
+    "body": [
+      "declare ${1:declaration};"
+    ],
+    "description": "UTS环境声明"
+  },
+  "UTS Triple Slash Directive": {
+    "prefix": "triple",
+    "body": [
+      "/// <reference path=\"${1:path}\" />"
+    ],
+    "description": "UTS三斜杠指令"
   }
 } 
